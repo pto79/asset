@@ -1,0 +1,163 @@
+<section ng-controller="AssetController" ng-init="find()">
+  <div>
+    <h1></h1>
+    <form ng-submit="create()">
+    <input type="text" ng-model="street" placeholder="Street Name">
+    <input type="text" ng-model="block" placeholder="Block">
+    <label for="singleSelect"> Flat Type: </label>
+    <select name="singleSelect" ng-model="flat">
+      <option value=1>2 ROOM</option>
+      <option value=2>3 ROOM</option>
+      <option value=3>4 ROOM</option>
+      <option value=4>5 ROOM</option>
+      <option value=5>EXECUTIVE</option>
+    </select>
+    <label for="singleSelect2"> Storey Range: </label>
+    <select name="singleSelect2" ng-model="storey">
+      <option value=1>01 TO 03</option>
+      <option value=2>04 TO 06</option>
+      <option value=3>07 TO 09</option>
+      <option value=4>10 TO 12</option>
+      <option value=5>13 TO 15</option>
+      <option value=6>16 TO 18</option>
+      <option value=7>19 TO 21</option>
+      <option value=8>22 TO 24</option>
+      <option value=9>25 TO 27</option>
+      <option value=10>28 TO 30</option>
+      <option value=11>31 TO 33</option>
+      <option value=12>34 TO 36</option>
+      <option value=13>37 TO 39</option>
+      <option value=14>40 TO 42</option>
+      <option value=15>43 TO 45</option>
+      <option value=16>46 TO 48</option>
+      <option value=17>49 TO 51</option>
+    </select>    
+    <a class="btn btn-primary" ng-click="create();">
+      <i class="glyphicon glyphicon-plus"> Add HDB</i>
+    </a> 
+    </form>
+
+    <form>
+    <input type="text" ng-model="project" placeholder="Project Name">
+    <input type="text" ng-model="street2" placeholder="Street Name">
+    <input type="text" ng-model="area" placeholder="Area (Sqft)">
+    <label for="singleSelect3">Floor Level: </label>
+    <select name="singleSelect3" ng-model="level">
+      <option value=1>01 to 05</option>
+      <option value=2>06 to 10</option>
+      <option value=3>11 to 15</option>
+      <option value=4>16 to 20</option>
+      <option value=5>21 to 25</option>
+      <option value=6>26 to 30</option>
+      <option value=7>31 to 35</option>
+      <option value=8>36 to 40</option>
+      <option value=9>41 to 45</option>
+      <option value=10>46 to 50</option>
+    </select>
+    <a class="btn btn-primary" ng-click="create()">
+      <i class="glyphicon glyphicon-plus"> Add Private</i>
+    </a>
+    </form>
+  </div> 
+ 
+  <div class="list-group">
+    <div ng-repeat="asset in assets" ng-show="asset.user._id == authentication.user._id">
+    <form ng-if="asset.estate != undefined">
+    <input type="text" ng-model="asset.estate.street" placeholder="{{asset.estate.street}}">
+    <input type="text" ng-model="asset.estate.block" placeholder="{{asset.estate.block}}">
+    <label for="flatSelect"> Flat Type: </label>
+    <select name="flatSelect" ng-model="asset.estate.flat">
+      <option value=1>2 ROOM</option>
+      <option value=2>3 ROOM</option>
+      <option value=3>4 ROOM</option>
+      <option value=4>5 ROOM</option>
+      <option value=5>EXECUTIVE</option>
+    </select>
+    <label for="storeySelect"> Storey Range: </label>
+    <select name="storeySelect" ng-model="asset.estate.storey">
+      <option value=1>01 TO 03</option>
+      <option value=2>04 TO 06</option>
+      <option value=3>07 TO 09</option>
+      <option value=4>10 TO 12</option>
+      <option value=5>13 TO 15</option>
+      <option value=6>16 TO 18</option>
+      <option value=7>19 TO 21</option>
+      <option value=8>22 TO 24</option>
+      <option value=9>25 TO 27</option>
+      <option value=10>28 TO 30</option>
+      <option value=11>31 TO 33</option>
+      <option value=12>34 TO 36</option>
+      <option value=13>37 TO 39</option>
+      <option value=14>40 TO 42</option>
+      <option value=15>43 TO 45</option>
+      <option value=16>46 TO 48</option>
+      <option value=17>49 TO 51</option>
+    </select>
+    <a class="btn btn-primary" ng-click="update(asset)">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove(asset)">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a> 
+    <a class="btn btn-primary" ng-click="doEstimate(asset)">
+	Search
+    </a>            
+    </form>
+    </div>
+
+    <div ng-repeat="asset in assets" ng-show="asset.user._id == authentication.user._id">
+    <form ng-if="asset.estate2 != undefined">
+    <input type="text" ng-model="asset.estate2.project" placeholder="{{asset.estate2.project}}">
+    <input type="text" ng-model="asset.estate2.street" placeholder="{{asset.estate2.street}}">
+    <input type="text" ng-model="asset.estate2.area" placeholder="{{asset.estate2.area}}">
+    <label for="levelSelect"> Floor Level: </label>
+    <select name="levelSelect" ng-model="asset.estate2.level">
+      <option value=1>01 TO 05</option>
+      <option value=2>06 TO 10</option>
+      <option value=3>11 TO 15</option>
+      <option value=4>16 TO 20</option>
+      <option value=5>21 TO 25</option>
+      <option value=6>26 TO 30</option>
+      <option value=7>31 TO 35</option>
+      <option value=8>36 TO 40</option>
+      <option value=9>41 TO 45</option>
+      <option value=10>46 TO 50</option>
+    </select>
+    <a class="btn btn-primary" ng-click="update(asset)">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove(asset)">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a> 
+    <a class="btn btn-primary" ng-click="doEstimate2(asset)">
+	Search
+    </a>            
+    </form>
+    </div>
+  </div>
+
+    <div ng-repeat="flat in hdb">
+      {{flat.month}} {{flat.street_name}} {{flat.flat_type}}  {{flat.resale_price}} {{flat.storey_range}}
+    </div>
+
+    <div ng-repeat="flat in hdb">
+      {{flat["Project Name"]}}, {{flat["Street Name"]}}, {{flat["Floor Level"]}}, {{flat["Unit Price ($psf)"]}}, {{flat["Area (Sqft)"]}},  {{flat["Price ($)"]}}, {{flat["Date of Sale"]}}
+    </div>
+
+</section>
+<!--
+    <div ng-repeat="flat in hdb">
+      {{flat.month}} {{flat.street_name}} {{flat.flat_type}}  {{flat.resale_price}} {{flat.storey_range}}
+    </div>
+    <a class="btn btn-primary" ng-click="doEstimate()">
+      <i class="glyphicon glyphicon-info-sign"> Estimate</i>
+    </a>
+    <a class="btn btn-primary" ng-click="doList()">
+      <i> list</i>
+    </a>
+    <div class="row">
+	<div class="col">month</div>
+        <div class="col">street name</div>
+    <div ng-repeat="flat in hdb">
+      {{flat.month}} {{flat.street_name}} {{flat.flat_type}}  {{flat.resale_price}} {{flat.storey_range}}
+    </div>

@@ -1,0 +1,31 @@
+<section ng-controller="AssetController" ng-init="find()">
+  <div class="page-header">
+    <h1>Equity</h1>
+    <form ng-submit="create()">
+    <input type="text" ng-model="symbol" placeholder="Stock symbol">
+    <input type="text" ng-model="amount" placeholder="Stock amount">
+    <a class="btn btn-primary" ng-click="create();">
+      <i class="glyphicon glyphicon-plus"> Add Stock</i>
+    </a> 
+    </form>
+  </div>
+
+  
+  <div class="list-group">
+    <div ng-repeat="asset in assets" ng-show="asset.user._id == authentication.user._id">
+    <form ng-if="asset.equity != undefined">
+    <input type="text" ng-model="asset.equity.symbol" placeholder="{{asset.equity.symbol}}">
+    <input type="text" ng-model="asset.equity.amount" placeholder="{{asset.equity.amount}}">
+    <a class="btn btn-primary" ng-click="update(asset)">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove(asset);">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+    </form>
+    </div>
+  </div>
+    <a class="btn btn-primary" ng-click="doCalculate();">
+      <i class="glyphicon glyphicon-info-sign"> Calculate</i>
+    </a>  
+</section>
